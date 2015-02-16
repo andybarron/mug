@@ -1,0 +1,49 @@
+
+
+test_closure := fn(n) {
+  closed := n
+  fn() {
+    closed
+  }
+}
+
+get_one := test_closure(1)
+get_two := test_closure(2)
+
+print("should be two: " + get_two())
+print("should be one: " + get_one())
+
+exit()
+
+main := fn() {
+  add := fn(a, b) { nested_fn := fn(c, d) { c + d }; nested_fn(a, b); }
+  nice := fn(
+    words
+  ) {
+    print(words + " please!")
+  }
+  c := add(1, 2)
+  print(c) # comments here
+  print("Hello World!")
+  print(add)
+  nice("I'd like some tea")
+  forward := fn() { func() }
+  func := fn() { print("hi") }
+  forward()
+  "main result"
+}()
+
+print(main)
+exit()
+
+fn() { print("hey") }()
+
+get_func_func := fn() {
+  fn() {
+    fn() {
+      print("Whoa!")
+    }
+  }
+}
+
+get_func_func()()() # LOL

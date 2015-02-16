@@ -1,0 +1,28 @@
+# Example Mug file
+# These are comments!
+
+# Basic function declaration
+add := fn(x, y) {
+  x + y
+}
+
+# Variable declaration and assignment
+z := 0
+z = add(3, 4)
+
+# Built-in print function
+print("Should be 7: " + z)
+
+# First-class functions and closures!
+make_adder := fn(n) {
+  amount := n
+  fn(x) { x + amount }
+}
+
+add_one := make_adder(1)
+add_two := make_adder(2)
+
+print("Should be 7: " + add_one(6))
+print("Should be 7: " + add_two(5))
+
+# COMING SOON: Controls structures and loops :-)
