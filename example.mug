@@ -25,4 +25,4 @@ add_two := make_adder(2)
 print("Should be 7: " + add_one(6))
 print("Should be 7: " + add_two(5))
 
-# COMING SOON: Controls structures and loops :-)
+# COMING SOON: Control structures and loops :-)
