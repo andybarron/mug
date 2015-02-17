@@ -1,8 +1,7 @@
 var Expr = require('./expr');
 
 function ExprCmp(scope, op, lhs, rhs) {
-  return new Expr(
-    scope,
+  Expr.call(this, 
     function retCmp(scope) {
       var a = lhs.eval(scope);
       var b = rhs.eval(scope);
@@ -14,8 +13,9 @@ function ExprCmp(scope, op, lhs, rhs) {
         '<=': a <= b,
         '>=': a >= b,
       }[op]
-    }
+    },
+    [lhs, rhs]
   );
 }
 
-module.exports = ExprCmp;
+module.exports = Expr.extend(ExprCmp);

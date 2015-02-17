@@ -1,9 +1,7 @@
 var Expr = require('./expr');
 
 function ExprBlock(scope, exprs) {
-  // TODO evaluate param names for duplicates
-  return new Expr(
-    scope,
+  Expr.call(this, 
     function retBlock(scope, isFn) {
       var exprScope = isFn ? scope : scope.createChild();
       var out = null;
@@ -11,8 +9,9 @@ function ExprBlock(scope, exprs) {
         out = expr.eval(exprScope);
       });
       return out;
-    }
+    },
+    exprs
   );
 }
 
-module.exports = ExprBlock;
+module.exports = Expr.extend(ExprBlock);

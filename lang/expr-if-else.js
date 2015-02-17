@@ -5,8 +5,7 @@ function ExprIfElse(scope, predicates, exprs) {
     (predicates.length == exprs.length) ||
     (predicates.length == exprs.length-1);
   if (!valid) throw new Error("Invalid if-else");
-  return new Expr(
-    scope,
+  Expr.call(this, 
     function retIfElse(scope) {
       var output = null;
       // TODO create local scope for these?
@@ -19,8 +18,10 @@ function ExprIfElse(scope, predicates, exprs) {
         }
       }
       return output;
-    }
+    },
+    exprs,
+    predicates,
   );
 }
 
-module.exports = ExprIfElse;
+module.exports = Expr.extend(ExprIfElse);

@@ -1,7 +1,7 @@
 var Expr = require('./expr');
 
-function ExprNum(scope, num) {
-  return new Expr(scope, function retNum(scope) { return parseFloat(num); });
+function ExprNum(num) {
+  Expr.call(this, function retNum(scope) { return parseFloat(num); });
 }
 
-module.exports = ExprNum;
+module.exports = Expr.extend(ExprNum);

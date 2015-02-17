@@ -1,18 +1,18 @@
 var Expr = require('./expr');
 
 function ExprAssign(scope, id, props, rhs) {
-  return new Expr(
-    scope,
+  Expr.call(this, 
     function retAssign(scope) {
       if (props.length == 0) {
-        var out = rhs.eval();
+        var out = rhs.eval(scope);
         scope.assignId(id, out);
         return out;
       } else {
         throw new Error("UNIMPLEMENTED: Property set");
       }
-    }
+    },
+    [rhs]
   );
 }
 
-module.exports = ExprAssign;
+module.exports = Expr.extend(ExprAssign);

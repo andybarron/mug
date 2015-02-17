@@ -1,8 +1,8 @@
 var Expr = require('./expr');
 
-function ExprStr(scope, str) {
+function ExprStr(str) {
   var out = str.replace(/(\\r)?\\n/, '\n');
-  return new Expr(scope, function retStr(scope) { return out; });
+  Expr.call(this, function retStr(scope) { return out; });
 }
 
-module.exports = ExprStr;
+module.exports = Expr.extend(ExprStr);

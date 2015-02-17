@@ -56,18 +56,9 @@
 
 expressions
     : ENDL* expr_seq EOF
-    {
-        if (yy.freeRet) {
-            throw new Error(
-                "Parse error: 'return' outside function body"
-            );
+        {
+            return new yy.Program($expr_seq)
         }
-        var out = null;
-        $expr_seq.forEach(function(e) {
-            out = e.eval();
-        });
-        return out;
-    }
     ;
 
 expr_seq
@@ -126,8 +117,8 @@ else_block
     ;
 
 expr
-    : id_prop ':=' expr
-        -> new yy.ExprDeclare(yy.scope, $id_prop.id, $id_prop.props, $expr)
+    : ID ':=' expr
+        -> new yy.ExprDeclare(yy.scope, $ID, $expr)
     | id_prop '<-' expr
         -> new yy.ExprAssign(yy.scope, $id_prop.id, $id_prop.props, $expr)
     | expr '(' ENDL? expr_list ')'
@@ -146,10 +137,10 @@ expr
     | expr '<' expr -> new yy.ExprCmp(yy.scope, $2, $expr1, $expr2)
     | expr '<=' expr -> new yy.ExprCmp(yy.scope, $2, $expr1, $expr2)
     | id_prop -> new yy.ExprId(yy.scope, $id_prop.id, $id_prop.props)
-    | NUM -> new yy.ExprNum(yy.scope, yytext)
-    | STRING -> new yy.ExprStr(yy.scope, yytext.substr(1, yytext.length-2))
-    | TRUE -> new yy.ExprBool(yy.scope, true)
-    | FALSE -> new yy.ExprBool(yy.scope, false)
+    | NUM -> new yy.ExprNum(yytext)
+    | STRING -> new yy.ExprStr(yytext.substr(1, yytext.length-2))
+    | TRUE -> new yy.ExprBool(true)
+    | FALSE -> new yy.ExprBool(false)
     | block
     | IF expr block else_if_block* else_block?
         {

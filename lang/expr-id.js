@@ -1,8 +1,7 @@
 var Expr = require('./expr');
 
 function ExprId(scope, id, props) {
-  return new Expr(
-    scope,
+  Expr.call(this, 
     function retId(scope) {
       if (props.length == 0)
         return scope.resolveId(id);
@@ -12,4 +11,4 @@ function ExprId(scope, id, props) {
   );
 }
 
-module.exports = ExprId;
+module.exports = Expr.extend(ExprId);

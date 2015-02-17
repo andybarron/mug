@@ -3,8 +3,7 @@ var Fn = require('./fn');
 var ExprId = require('./expr-id');
 
 function ExprCall(scope, lexpr, argExprs) {
-  return new Expr(
-    scope,
+  Expr.call(this, 
     function callFn(scope) {
       var func = lexpr.eval(scope);
       var args = argExprs.map(function(expr) {
@@ -15,8 +14,10 @@ function ExprCall(scope, lexpr, argExprs) {
       } else {
         throw new Error("Not callable");
       }
-    }
+    },
+    argExprs,
+    [lexpr]
   );
 }
 
-module.exports = ExprCall;
+module.exports = Expr.extend(ExprCall);

@@ -1,12 +1,12 @@
 var Expr = require('./expr');
 
 function ExprAdd(scope, a, b) {
-  return new Expr(
-    scope,
+  Expr.call(this, 
     function retAdd(scope) {
       return a.eval(scope) + b.eval(scope);
-    }
+    },
+    [a, b]
   );
 }
 
-module.exports = ExprAdd;
+module.exports = Expr.extend(ExprAdd);

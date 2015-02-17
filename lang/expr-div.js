@@ -1,7 +1,12 @@
 var Expr = require('./expr');
 
 function ExprDiv(scope, a, b) {
-  return new Expr(scope, function retDiv(scope) { return a.eval(scope) / b.eval(scope); });
+  Expr.call(this, 
+    function retDiv(scope) {
+      return a.eval(scope) / b.eval(scope);
+    },
+    [a, b]
+  );
 }
 
-module.exports = ExprDiv;
+module.exports = Expr.extend(ExprDiv);

@@ -14,6 +14,7 @@ function lang(str) {
 
 var yy = parser.yy = {
   Scope: lang('scope'),
+  Program: lang('program'),
   ExprDeclare: lang('expr-declare'),
   ExprAssign: lang('expr-assign'),
   ExprId: lang('expr-id'),
@@ -34,7 +35,7 @@ var yy = parser.yy = {
 var langScope = new yy.Scope();
 langScope.registerId('print', lang('builtin-print'));
 langScope.registerId('exit', lang('builtin-exit'));
-yy.scope = new yy.Scope(langScope);
+var topScope = yy.scope = new yy.Scope(langScope);
 
 
 if (args.length == 0) {
@@ -60,7 +61,7 @@ if (args.length == 0) {
       try {
         // output("=> ", parser.parse(input), '\n');
         output("=> ");
-        langScope.ids.print.invoke([parser.parse(input)])
+        langScope.ids.print.invoke([parser.parse(input).run(topScope)])
       } catch (e) {
         output(e, '\n');
       } finally {
@@ -78,7 +79,8 @@ if (args.length == 0) {
   var mugFileContents = fs.readFileSync(mugFile, 'utf-8') + "\n";
 
   try {
-    parser.parse(mugFileContents);
+    var program = parser.parse(mugFileContents)
+    program.run(topScope);
   } catch (e) {
     console.error(e);
   }

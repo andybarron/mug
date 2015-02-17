@@ -1,7 +1,13 @@
 var Expr = require('./expr');
 
 function ExprSub(scope, a, b) {
-  return new Expr(scope, function retSub(scope) { return a.eval(scope) - b.eval(scope); });
+  Expr.call(
+    this,
+    function retSub(scope) {
+      return a.eval(scope) - b.eval(scope);
+    },
+    [a, b]
+  );
 }
 
-module.exports = ExprSub;
+module.exports = Expr.extend(ExprSub);

@@ -1,12 +1,11 @@
 var Expr = require('./expr');
 
-function ExprBool(scope, boolValue) {
-  return new Expr(
-    scope,
+function ExprBool(boolValue) {
+  Expr.call(this, 
     function retBool(scope) {
       return boolValue;
     }
   );
 }
 
-module.exports = ExprBool;
+module.exports = Expr.extend(ExprBool);
