@@ -1,0 +1,5 @@
+* Implement loops
+* Implement base object type
+  * Use for numbers/strings/bools
+* Context-sensitive statements
+* Recurse keyword

@@ -58,7 +58,9 @@ if (args.length == 0) {
       var input = buffer.substring(0, idx);
       buffer = buffer.substring(idx+1, buffer.length);
       try {
-        output("=> ", parser.parse(input), '\n');
+        // output("=> ", parser.parse(input), '\n');
+        output("=> ");
+        langScope.ids.print.invoke([parser.parse(input)])
       } catch (e) {
         output(e, '\n');
       } finally {
