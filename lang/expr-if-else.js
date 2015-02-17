@@ -20,7 +20,7 @@ function ExprIfElse(scope, predicates, exprs) {
       return output;
     },
     exprs,
-    predicates,
+    predicates
   );
 }
 

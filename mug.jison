@@ -103,7 +103,7 @@ expr_list
 
 block
     : '{' ENDL* expr_seq '}'
-        -> new yy.ExprBlock(yy.scope, $expr_seq)
+        -> $expr_seq
     ;
 
 else_if_block
@@ -142,6 +142,7 @@ expr
     | TRUE -> new yy.ExprBool(true)
     | FALSE -> new yy.ExprBool(false)
     | block
+        -> new yy.ExprBlock(yy.scope, $block)
     | IF expr block else_if_block* else_block?
         {
             var predicates = [$expr1]
