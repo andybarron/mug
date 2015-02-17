@@ -23,7 +23,6 @@ See `example.mug` in the top level of the repo!
 
 ## Upcoming Features
 * Loops (heh)
-* `recurse` keyword
 * Moving to something faster than NodeJS (maybe)
 
 ##
