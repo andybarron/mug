@@ -1,8 +1,8 @@
-function Fn(parentScope, params, exprs, _custom) {
+function Fn(parentScope, params, expr, _custom) {
   if (!_custom) {
     this.parentScope = parentScope;
     this.params = params;
-    this.exprs = exprs;
+    this.expr = expr;
   } else {
     this._custom = _custom;
   }
@@ -19,11 +19,7 @@ Fn.prototype = {
     for (var i = 0; i < args.length; i++) {
       scope.registerId(this.params[i], args[i]);
     }
-    var result = null;
-    this.exprs.forEach(function(expr) {
-      result = expr.eval(scope);
-    });
-    return result;
+    return this.expr.eval(scope, true);
   },
   _print: function() {
     return "<" + this.params.length + "-arg fn>";

@@ -25,6 +25,9 @@ var yy = parser.yy = {
   ExprDiv: lang('expr-div'),
   ExprNum: lang('expr-num'),
   ExprStr: lang('expr-str'),
+  ExprBool: lang('expr-bool'),
+  ExprBlock: lang('expr-block'),
+  ExprIfElse: lang('expr-if-else'),
 };
 
 var langScope = new yy.Scope();
@@ -71,5 +74,9 @@ if (args.length == 0) {
   var mugFile = path.join(process.cwd(), args[0]);
   var mugFileContents = fs.readFileSync(mugFile, 'utf-8') + "\n";
 
-  parser.parse(mugFileContents);
+  try {
+    parser.parse(mugFileContents);
+  } catch (e) {
+    console.error(e);
+  }
 }

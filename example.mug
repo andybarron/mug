@@ -6,9 +6,9 @@ add := fn(x, y) {
   x + y
 }
 
-# Variable declaration and assignment
+# Variable declaration and re-assignment
 z := 0
-z = add(3, 4)
+z <- add(3, 4)
 
 # Built-in print function
 print("Should be 7: " + z)
