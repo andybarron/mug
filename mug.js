@@ -40,41 +40,29 @@ var topScope = yy.scope = new yy.Scope(langScope);
 
 
 if (args.length == 0) {
-  function output() {
-    util.print.apply(util, arguments);
-  }
-  var prompt = "mug> ";
-  var buffer = "";
-  var init = false;
-  process.stdin.setEncoding('utf8');
-  process.stdin.on('readable', function() {
-    if (!init) {
-      init = true;
-      output(prompt);
-    }
-    var chunk;
-    while (null !== (chunk = this.read())) {
-      buffer += chunk;
-      var idx = buffer.indexOf('\n');
-      if (idx == -1) continue;
-      var input = buffer.substring(0, idx);
-      buffer = buffer.substring(idx+1, buffer.length);
-      try {
-        // output("=> ", parser.parse(input), '\n');
-        output("=> ");
-        langScope.ids.print.invoke([parser.parse(input).run(topScope)])
-      } catch (e) {
-        output(e, '\n');
-      } finally {
-        output(prompt);
-        return;
-      }
+  var readline = require('readline');
+  var rl = readline.createInterface(process.stdin, process.stdout);
+
+  rl.setPrompt("mug> ");
+  rl.prompt();
+
+  rl.on('line', function(line) {
+    try {
+      var prog = parser.parse(line);
+      var result = prog.run(topScope);
+      util.print("=> ");
+      langScope.ids.print.invoke([result]);
+    } catch (e) {
+      util.print(e, "\n");
+    } finally {
+      rl.prompt();
     }
   });
-  process.stdin.on('end', function() {
-    output("\nBye!\n");
-    process.exit();
-  });
+
+  rl.on('close', function() {
+    util.print("\n");
+    process.exit(0);
+  })
 } else {
   var mugFile = path.join(process.cwd(), args[0]);
   var mugFileContents = fs.readFileSync(mugFile, 'utf-8') + "\n";
