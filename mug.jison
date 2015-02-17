@@ -12,6 +12,7 @@
 "else"                     return 'ELSE';
 "true"                     return 'TRUE';
 "false"                    return 'FALSE';
+"recurse"                  return 'RECURSE';
 [0-9]+("."[0-9]+)?\b       return 'NUM';
 [A-Za-z][A-Za-z0-9_']*\b    return 'ID';
 \"([^\n\\]|\\.)*?\"        return 'STRING';
@@ -123,6 +124,8 @@ expr
         -> new yy.ExprAssign(yy.scope, $id_prop.id, $id_prop.props, $expr)
     | expr '(' ENDL? expr_list ')'
         -> new yy.ExprCall(yy.scope, $expr, $expr_list)
+    | RECURSE '(' ENDL? expr_list ')'
+        -> new yy.ExprRecurse(yy.scope, $expr_list)
     | FN '(' ENDL* id_list ')' block
         -> new yy.ExprFn(yy.scope, $id_list, $block);
     | expr '+' expr -> new yy.ExprAdd(yy.scope, $expr1, $expr2)

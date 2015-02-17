@@ -3,3 +3,4 @@
   * Use for numbers/strings/bools
 * Context-sensitive statements
 * Recurse keyword
+* Unary minus

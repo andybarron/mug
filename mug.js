@@ -30,6 +30,7 @@ var yy = parser.yy = {
   ExprBlock: lang('expr-block'),
   ExprIfElse: lang('expr-if-else'),
   ExprCmp: lang('expr-cmp'),
+  ExprRecurse: lang('expr-recurse'),
 };
 
 var langScope = new yy.Scope();

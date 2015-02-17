@@ -6,14 +6,13 @@ function ExprCall(scope, lexpr, argExprs) {
   Expr.call(this, 
     function callFn(scope) {
       var func = lexpr.eval(scope);
+      var isFn = func instanceof Fn;
+      if (!isFn) { throw new Error("Not callable"); }
+      
       var args = argExprs.map(function(expr) {
         return expr.eval(scope);
       });
-      if (func instanceof Fn) {
-        return func.invoke(args);
-      } else {
-        throw new Error("Not callable");
-      }
+      return func.invoke(args);
     },
     argExprs,
     [lexpr]

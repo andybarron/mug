@@ -2,6 +2,7 @@ var expr = require('./expr');
 
 function Program(exprs) {
   this.exprs = exprs;
+  this.validate();
 }
 
 Program.prototype = {
