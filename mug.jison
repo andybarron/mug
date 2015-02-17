@@ -15,9 +15,11 @@
 [0-9]+("."[0-9]+)?\b       return 'NUM';
 [A-Za-z][A-Za-z0-9_']*\b    return 'ID';
 \"([^\n\\]|\\.)*?\"        return 'STRING';
-"."                        return '.';
 ":="                       return ':=';
 "<-"                       return '<-';
+"!="                       return '!=';
+"<="                       return '<=';
+">="                       return '>=';
 ";"                        return ';'
 "{"                        return '{';
 "}"                        return '}';
@@ -25,10 +27,13 @@
 ")"                        return ')';
 ","                        return ',';
 "="                        return '=';
+"<"                        return '<';
+">"                        return '>';
 "+"                        return '+';
 "*"                        return '*';
 "/"                        return '/';
 "-"                        return '-';
+"."                        return '.';
 <<EOF>>                    return 'EOF';
 
 /lex
@@ -36,7 +41,7 @@
 /* operator associations and precedence */
 
 %nonassoc IF THEN ELSE
-%left '<' '>' '<=' '>=' '!=' '='
+%nonassoc '<' '>' '<=' '>=' '!=' '='
 %right ':=' '<-'
 %left '+' '-'
 %left '*' '/'
@@ -134,6 +139,12 @@ expr
     | expr '*' expr -> new yy.ExprMul(yy.scope, $expr1, $expr2)
     | expr '/' expr -> new yy.ExprDiv(yy.scope, $expr1, $expr2)
     | '(' expr ')' -> $expr
+    | expr '=' expr -> new yy.ExprCmp(yy.scope, $2, $expr1, $expr2)
+    | expr '!=' expr -> new yy.ExprCmp(yy.scope, $2, $expr1, $expr2)
+    | expr '>' expr -> new yy.ExprCmp(yy.scope, $2, $expr1, $expr2)
+    | expr '>=' expr -> new yy.ExprCmp(yy.scope, $2, $expr1, $expr2)
+    | expr '<' expr -> new yy.ExprCmp(yy.scope, $2, $expr1, $expr2)
+    | expr '<=' expr -> new yy.ExprCmp(yy.scope, $2, $expr1, $expr2)
     | id_prop -> new yy.ExprId(yy.scope, $id_prop.id, $id_prop.props)
     | NUM -> new yy.ExprNum(yy.scope, yytext)
     | STRING -> new yy.ExprStr(yy.scope, yytext.substr(1, yytext.length-2))

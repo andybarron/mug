@@ -28,6 +28,7 @@ var yy = parser.yy = {
   ExprBool: lang('expr-bool'),
   ExprBlock: lang('expr-block'),
   ExprIfElse: lang('expr-if-else'),
+  ExprCmp: lang('expr-cmp'),
 };
 
 var langScope = new yy.Scope();

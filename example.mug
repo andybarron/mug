@@ -25,4 +25,21 @@ add_two := make_adder(2)
 print("Should be 7: " + add_one(6))
 print("Should be 7: " + add_two(5))
 
-# COMING SOON: Control structures and loops :-)
+# Expression usage and if statements
+describe_number := fn(num) {
+  if num < 0 {
+    "negative"
+  } else if num = 0 {
+    "zero"
+  } else {
+    "positive"
+  }
+}
+
+print("Seven is " + describe_number(7))
+
+print(
+  if true { "True!" } else { "False..." }
+)
+
+# COMING SOON: Loops :-)

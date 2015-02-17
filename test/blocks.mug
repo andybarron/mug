@@ -1,3 +1,0 @@
-add := fn(a, b) { a + b }
-
-print(true)
