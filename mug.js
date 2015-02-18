@@ -41,6 +41,9 @@ var topScope = yy.scope = new yy.Scope(langScope);
 
 
 if (args.length == 0) {
+
+  console.log("Welcome to Mug!");
+
   var readline = require('readline');
   var rl = readline.createInterface(process.stdin, process.stdout);
 
