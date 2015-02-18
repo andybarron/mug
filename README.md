@@ -1,10 +1,12 @@
 # Mug
-Fun & functional\* programming language, implemented with Jison and NodeJS\*\*.
+Fun & functional\* programming language, implemented with Jison and NodeJS\*\*
 
 ## Features
 * Beautiful\*\*\* syntax
 * First-class functions
 * Closures
+* Dynamic typing
+* Everything is an expression
 
 ## Setup
 To run the current interpreter, you first need to install NodeJS (https://nodejs.org/).
@@ -29,4 +31,4 @@ See `example.mug` in the top level of the repo!
 ##
 \* Get it?  
 \*\* I know, I know...  
-\*\*\* Purely my opinion.
+\*\*\* Purely subjective!
