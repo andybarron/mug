@@ -49,4 +49,11 @@ print(
   if true { "True!" } else { "False..." }
 )
 
-# COMING SOON: Loops :-)
+# Loops
+counter := 0
+while counter <= 7 {
+  print("Counting: " + counter)
+  counter <- counter + 1
+}
+
+# COMING SOON: Lists!

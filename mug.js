@@ -29,6 +29,7 @@ var yy = parser.yy = {
   ExprBool: lang('expr-bool'),
   ExprBlock: lang('expr-block'),
   ExprIfElse: lang('expr-if-else'),
+  ExprWhile: lang('expr-while'),
   ExprCmp: lang('expr-cmp'),
   ExprRecurse: lang('expr-recurse'),
 };
@@ -48,7 +49,7 @@ if (args.length == 0) {
 
   rl.on('line', function(line) {
     try {
-      var prog = parser.parse(line);
+      var prog = parser.parse(line + '\n');
       var result = prog.run(topScope);
       util.print("=> ");
       langScope.ids.print.invoke([result]);

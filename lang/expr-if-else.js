@@ -14,15 +14,14 @@ function ExprIfElse(scope, predicates, blocks) {
   Expr.call(this, 
     function retIfElse(scope) {
       var output = null;
-      // TODO create local scope for predicates?
       for (var i = 0; i < blocks.length; i++) {
+        var localScope = scope.createChild();
         var doThis = (i == predicates.length) ||
-            (predicates[i].eval(scope));
+            (predicates[i].eval(localScope));
         if (doThis) {
           var block = blocks[i];
-          var childScope = scope.createChild();
           block.forEach(function(expr) {
-            output = expr.eval(childScope);
+            output = expr.eval(localScope);
           })
           break;
         }

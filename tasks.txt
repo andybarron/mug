@@ -1,4 +1,5 @@
-* Implement loops
+* Implement lists
+* Implement for loops
 * Implement base object type
   * Use for numbers/strings/bools
 * Unary minus

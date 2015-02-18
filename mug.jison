@@ -13,9 +13,11 @@
 "true"                     return 'TRUE';
 "false"                    return 'FALSE';
 "recurse"                  return 'RECURSE';
+"while"                    return 'WHILE';
 [0-9]+("."[0-9]+)?\b       return 'NUM';
-[A-Za-z][A-Za-z0-9_']*\b    return 'ID';
+[A-Za-z][A-Za-z0-9_']*\b   return 'ID';
 \"([^\n\\]|\\.)*?\"        return 'STRING';
+
 ":="                       return ':=';
 "<-"                       return '<-';
 "!="                       return '!=';
@@ -146,6 +148,8 @@ expr
     | FALSE -> new yy.ExprBool(false)
     | block
         -> new yy.ExprBlock(yy.scope, $block)
+    | WHILE expr block
+        -> new yy.ExprWhile(yy.scope, $expr, $block)
     | IF expr block else_if_block* else_block?
         {
             var predicates = [$expr1]

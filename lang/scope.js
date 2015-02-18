@@ -14,6 +14,8 @@ Scope.prototype = {
   assignId: function(id, val) {
     if (id in this.ids) {
       this.ids[id] = val;
+    } else if (this.parent) {
+      return this.parent.assignId(id, val);
     } else {
       throw new Error("Can't reassign undeclared identifier: " + id);
     }
