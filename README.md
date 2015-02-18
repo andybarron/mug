@@ -22,7 +22,8 @@ To interpret a `.mug` file: `node mug.js path/to/file`
 See `example.mug` in the top level of the repo!
 
 ## Upcoming Features
-* Loops (heh)
+* Lists/arrays
+* More loop types
 * Moving to something faster than NodeJS (maybe)
 
 ##
